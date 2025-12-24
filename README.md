@@ -1,5 +1,5 @@
 # devops-automatico
-curso de dev-ops, contém:
+curso de devops, contém:
 - ansible
 - linux
 - docker
