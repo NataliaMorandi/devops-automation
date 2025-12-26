@@ -1,0 +1,25 @@
+# Python cache (arquivos temporarios, so aumentam a imagem, nao servem para producao)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments (nunca deve ir para o container, pois ele cria seu proprio ambiente)
+.venv/
+venv/
+
+# Git (reduz tamanho e evita vazamento de informacoes)
+.git/
+.gitignore
+
+# Docker files that shouldn't go into the image (nao precisa estar dentro do container porque o docker ja usou eles no build)
+Dockerfile
+.dockerignore
+
+# OS / editor files
+.DS_Store
+.idea/
+.vscode/
+
+# Docs and misc
+README.md
