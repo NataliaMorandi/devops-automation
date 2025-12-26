@@ -73,6 +73,12 @@ docker run -d -p 8000:8000 api-banana-1.0
 docker ps
 
 curl http://localhost:8000
-````
+
+docker exec -it 808f10d9065b bash
+
+ls
+
+exit
+``` 
 
 

@@ -29,7 +29,7 @@
     Retorna o HTML da página padrão do NGINX
 
 ### Acessar o container (debug)
-	docker exec -it webserver bash 
+	docker exec -it <container-id> bash 
     
     Para entrar no container: deve ser feito só para debug, inspeção ou troubleshooting. 
     Não para setup definitivo (ex: instalar Python, Node ou pacotes).
