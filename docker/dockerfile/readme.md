@@ -8,11 +8,12 @@ Se a linha muda, todas as linhas abaixo perdem o cache.
 E assim, o build fica muito mais lento, pois roda de novo linhas que já haviam sido lidas.
 
 Por isso, a ordem das linhas é muito importante. Então:
->>> colocar o que muda menos em cima (como por exemplo, as dependências)
->>> adicionar o que muda mais, nas ultimas linhas
+- colocar o que muda menos em cima (como por exemplo, as dependências)
+- adicionar o que muda mais, nas ultimas linhas
 
+---
 
-#### FROM: define a imagem
+``` FROM: define a imagem
 #### Nesse caso, Uusamos uma imagem oficial do Python, slim (mais leve, ideal para produção. Já vem com Python instalado)
 FROM python:3.11-slim
 
