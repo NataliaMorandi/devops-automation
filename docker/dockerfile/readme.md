@@ -61,7 +61,7 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 O container é iniciado executando o Uvicorn, que serve a aplicação FastAPI.
 
 #### Executando a aplicação do Docker
-Abrir o Docker Desktop (que precisa estar em execução)
+- Abrir o Docker Desktop (que precisa estar em execução)
 
 ```bash
 docker build -t api-banana-1.0 .
