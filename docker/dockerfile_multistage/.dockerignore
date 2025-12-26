@@ -1,0 +1,31 @@
+# Dependencies (never copy local dependencies)
+node_modules
+
+# Logs
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Build artifacts (if generated locally)
+dist
+build
+
+# Environment variables (should be injected at runtime, not baked into the image)
+.env
+
+# Git (reduce image size and avoid leaking repo data)
+.git/
+.gitignore
+
+# Docker files (used only at build time)
+Dockerfile
+.dockerignore
+
+# OS / editor files
+.DS_Store
+.idea/
+.vscode/
+
+# Documentation
+README.md
+readme.md
