@@ -53,3 +53,24 @@ Inicia o seridor Uvicorn, usa o arquivo main.py e procura nele uma variavel cham
 --port 8000 porta onde o Uvicorn vai escutar dentro do container, deve bater com EXPOSE 8000 (-p 8000:8000 ao rodar o container)
 
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"] 
+
+---
+
+### Inicialização da aplicação
+O container é iniciado executando o Uvicorn, que serve a aplicação FastAPI.
+
+#### Executando a aplicação do Docker
+Abrir o Docker Desktop (que precisa estar em execução)
+
+```bash
+docker build -t api-banana-1.0 .
+
+docker images
+
+docker run -d -p 8000:8000 api-banana-1.0
+
+docker ps
+
+curl http://localhost:8000
+
+
