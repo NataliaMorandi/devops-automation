@@ -12,12 +12,12 @@ Por isso, a ordem das linhas é muito importante. Então:
 >>> adicionar o que muda mais, nas ultimas linhas
 
 
-## FROM: define a imagem
-## Nesse caso, Uusamos uma imagem oficial do Python, slim (mais leve, ideal para produção. Já vem com Python instalado)
+#### FROM: define a imagem
+#### Nesse caso, Uusamos uma imagem oficial do Python, slim (mais leve, ideal para produção. Já vem com Python instalado)
 FROM python:3.11-slim
 
-## WORKDIR: define o diretorio de trabalho do container >>> que vai ser criado DENTRO DO CONTAINER
-## tudo que for copiado ou executado, no codigo, a partir dessa linha, será dentro do /app
+#### WORKDIR: define o diretorio de trabalho do container >>> que vai ser criado DENTRO DO CONTAINER
+#### tudo que for copiado ou executado, no codigo, a partir dessa linha, será dentro do /app
 WORKDIR /app
 
 ## Copia só o requirements.txt primeiro (boas praticas) e o . significa que será no /app
