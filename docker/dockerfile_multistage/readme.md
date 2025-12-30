@@ -108,6 +108,22 @@ docker exec -it <container-id> sh
 ls
 
 exit
+
 ``` 
+
+### Preparando para CI/CD, versionamento e deploy
+
+build → tag → push → registry
+
+```bash
+docker build -t api-abacaxi-1.0 .
+
+docker tag local-image:tagname new-repo:tagname
+docker tag nmorandi/api-abacaxi:1.0 nmorandi/api-abacaxi:1.0.0
+
+docker push new-repo:tagname
+docker push nmorandi/api-abacaxi:1.0
+
+```
 
 
