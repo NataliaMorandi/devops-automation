@@ -1,0 +1,16 @@
+name: Configurar VM com pacotes básicos
+hosts: targets
+become: yes
+
+tasks:
+    name: Atualizar lista de pacotes
+    brew:
+        update_cache:yes
+
+    name: Instalar pacotes úteis
+    brew: 
+        name: 
+          - htop
+          - curl
+          - git
+        state: present

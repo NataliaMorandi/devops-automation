@@ -1,0 +1,12 @@
+- name: Registrar inicio de uso do computador
+  hosts: localhost
+  connection: local
+  gather_facts: yes
+  
+  tasks:
+    - name: Registrar inicio se o sistema acabou de iniciar
+      lineinfile:
+        path: ~/Desktop/ponto.txt
+        line: "{{ ansible_date_time.date }} {{ ansible_date_time.time }}"
+        create: yes
+      when: ansible_uptime_seconds < 300
