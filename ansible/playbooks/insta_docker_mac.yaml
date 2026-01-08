@@ -1,0 +1,37 @@
+- name: InstalarDocker e rodas aplicação Java
+  hosts: localhost
+  connection: local
+  gather_facts: yes
+
+  tasks: 
+    - name: Garantir que o Homebrew esteja instalado
+      homebrew:
+        update_homebrew: yes
+
+    - name: Instalar Docker Desktop
+      homebrew_cask: 
+        name: docker
+        state: present
+
+    - name: Garantir que o Docker CLI esteja disponível
+      command: docker --version
+      register: docker_check
+      change_when: false
+      ignore_errors: yes
+
+    - name: Avisar se Docker Desktop não estiver iniciado
+      debug:
+        msg: "Docker Desktop precisa estar aberto manualmente no macOS"
+      when: docker_check.failed
+
+    - name: Rodar o container com a aplicação Java
+      docker_container:
+        name: java-aplicação
+        image: nmorandi/java-api:latest
+        state: started
+        restart_policy: always
+        ports: 
+          - "8081:8081"
+
+
+      

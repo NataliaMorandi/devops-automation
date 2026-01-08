@@ -293,18 +293,93 @@ Abreviação de destination.
 Usado em módulos que criam ou manipulam ou copiam arquivos. Aparece em:
 - copy
 - template
-- blockinfile
-- lineinfile
+- unarchive
+- get_url
 - fetch
 ```yaml
 dest: /tmp/arquivo.txt
 ```
 
 #### PATH
-Usado quando editamos ou verificamos algo:
+Usado quando editamos ou verificamos algo que já está no sistema, apenas gerenciando estado (permissão, existência, atributo). Aparece nos módulos:
+- file
+- stat (verifica algo no filesystem)
+- replace
+- find
 ```yaml
 path: /etc/ssh/sshd_config
 ```
 
+
+#### APPEND
+Sem 'append:yes' o usuario perde todos os outros grupos, ficando apenas no grupo novo em que foi recem adicionado.
+Com 'append:yes', o usuario é adicionado ao grupo novo, mas se mantém nos grupos existentes. 
+
+
+#### STATE
+Descreve como o recurso deve estar no final, não o que o Ansible deve "fazer" passo a passo.
+- Diz o estado desejado
+- o Ansible decide o que executar para chegar lá
+É um ponto crucial da automação declarativa.
+```yaml
+- name: Garantir que o git esteja instalado
+  homebrew:
+    name: git
+    state: present
+```
+Se não estiver instalado > instala, se já estiver instalado > não faz nada
+Estados mais comuns: 
+**present** 'isso deve existir', usado em pacotes, arquivos, usuários, grupos
+**absent** 'isso NÃO deve existir' remove pacote, deletar arquivo, apagar usuário
+**started** serviço deve estar rodando
+**stopped** serviço deve estar parado
+**restarted** reinicia o serviço
+**reloaded** recarrega config sem restart total
+
+o STATE muda conforme o módulo. Cada módulo aceita estados diferentes.
+file → touch ou directory ou file ou absent ou link
+```yaml
+file:
+  path: /tmp/teste.txt
+  state: touch
+```
+
+user → present
+```yaml
+user:
+  name: joao
+  state: present
+```
+
+service → started
+```yaml
+service:
+  name: nginx
+  state: started
+```
+
+Não usar state com alguns módulos:
+- command
+- shell
+- debug
+- set_fact
+Pois não controlam recursos e só executam ações.
+
+
+#### ansible-playbook -i hosts playbooks/usuario-devops.yaml 
+-i hosts → arquivo de inventory
+
+
+#### ansible -i hosts targets -m shell -a "ls -l /opt" 
+targets → grupo de hosts
+-m shell → módulo
+-a → argumentos dos módulo
+
+#### ansible -i hosts targets -m shell -a "cat /opt/app/status.txt"
+
+
+#### ansible -i hosts targets -m shell -a "id devops"
+id devops → está executando em id devops
+em todos os hosts do grupo targets
 
 

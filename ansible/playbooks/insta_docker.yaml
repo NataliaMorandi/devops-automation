@@ -1,0 +1,68 @@
+- name: InstalarDocker e rodas aplicação Java
+  hosts: targets
+  become: true
+
+  tasks: 
+    - name: Atualizar pacotes
+      brew:
+        update_cache: yes
+
+    - name: Instalar dependencias do Docker 
+      brew: 
+        name: 
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+
+    - name: Adicionar chave GPG do Docker 
+      shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+
+    - name: Adicionar repositorio do Docker
+      shell: add-apt-repository "deb [arch=amd64] https://download.dockr.com/linux/ubuntu focal stable"
+
+    - name: Atualizar pacotes novamente
+      brew:
+        update_cache: yes
+
+    - name: Instalar Docker
+      brew: 
+        name: docker-ce 
+        state: present
+
+    - name: Habilitar e iniciar o Docker
+      systemd:
+        name: docker
+        enabled: yes
+        state: present
+
+    - name: Instalar pip para Python 3
+      brew:
+        name: python3-pip
+        state: present
+
+    - name: Instalar SDK do Docker para Python
+      pip:
+        name: docker
+      when: pip_install_result is success
+
+    - name: Adicionar usuário ao grupo docker
+      user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: yes
+      # com o append, o user é adicionado ao grupo docker mas mantém os outros grupos existentes 
+      # sem o append, o user seria adicionado ao docker mas perderia todos os outros grupos
+
+    - name: Rodar o container com a aplicação Java
+      docker_container:
+        name: java-aplicação
+        image: nmorandi/java-api:latest
+        state: started
+        restart_policy: always
+        ports: 
+          - "8081:8081"
+
+
+      
